@@ -1,0 +1,57 @@
+﻿body{
+    font-family: 'Open Sans',  Arial, 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+}
+
+.hide{
+	display: none;
+}
+
+#logout{
+	cursor: pointer;
+}
+
+.bg_img{
+	background:
+		radial-gradient(circle, #777 30%, #ccc 70%),
+		linear-gradient(to right, #999, #444);
+	background-blend-mode: multiply, screen;
+	background-position: center;
+	background-size: cover;
+	background-attachment: fixed;
+}
+
+#autobiography p{
+	font-size: 1.25rem
+}
+
+#personal, #education, #experience, #autobiography, #jobconditions{
+	text-shadow: #444 1px 1px 2px;
+}
+
+#personal img{
+	height: 150px;
+	width: 150px;
+	border-radius: 50%;
+}
+
+#personal p{
+	font-size: 1.25rem;
+}
+
+#album img{
+    object-fit: cover;
+	filter:blur(1px);
+}
+
+#album .carousel-caption{
+    top: 0;
+    bottom: 0;
+    text-shadow: 3px 3px 5px #333;
+}
+
+#album .carousel-indicators li {
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    border: 1px solid transparent ;
+}

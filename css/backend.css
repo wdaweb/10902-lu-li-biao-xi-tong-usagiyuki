@@ -1,0 +1,89 @@
+﻿body{
+    font-family: 'Open Sans',  Arial, 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+}
+
+#resume nav > a {
+    flex: 0 1 13%;
+    transition: 500ms ease;
+}
+
+#resume nav > a.active {
+    background: #17a2b8;
+}
+
+#resume .tab-content>.row.active{
+    display: flex;
+}
+
+#nav-education .left_btn, #nav-experience .left_btn, #nav-autobiography .left_btn, #nav-jobconditions .left_btn, #nav-album .left_btn, #nav-works .left_btn{
+	padding-left : 30%;
+}
+
+#nav-education .right_btn, #nav-experience .right_btn, #nav-autobiography .right_btn, #nav-jobconditions .right_btn, #nav-album .right_btn, #nav-works .right_btn{
+	padding-right : 30%;
+}
+
+#autobiography textarea{
+    width: 100%;
+    height: 22vh;
+}
+
+.img_bg{
+    position:absolute;
+    right:3px;
+    top:4px;
+    cursor:pointer;
+    z-index:3;
+}
+
+.img_bg > div{
+    position:absolute;
+    width:99%;
+    height:100%;
+    margin:auto;
+    z-index:2;
+}
+
+#cover {
+	width:100%;
+	height:100%;
+	position:fixed;
+	z-index:5;
+	background:rgba(51,51,51,0.4);
+	top:0px;
+	left:0px;
+	overflow:auto;
+}
+
+#cover > div{
+	width:70%;
+	min-width:300px;
+	max-width:800px;
+	height:70%;
+	min-height:300px;
+	position:absolute;
+	z-index:5;
+	background:#ffffff;
+	top:0px;
+	left:0px;
+	right:0px;
+	bottom:0px;
+	margin:auto;
+	overflow:auto;
+}
+
+.custom-file-label::after{
+    content: "選擇檔案";
+}
+.col-6 > .custom-file-label::after, .col-md-3 > .custom-file-label::after{
+    content: "更換圖片";
+}
+div.custom-file:not(.col-md-3){
+    width: 70%;
+    margin: 0 15%;
+    margin-bottom: 20px;
+}
+
+.img-thumbnail{
+    height: auto;
+}

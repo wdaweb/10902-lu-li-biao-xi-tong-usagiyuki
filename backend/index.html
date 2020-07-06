@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>後台管理</title>
+
+    <link rel="stylesheet" href="../plugins/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/backend.css">
+    <!-- 標題旁小圖 https://gauger.io/fonticon/ -->
+    <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
+    <!-- google font -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500&family=Open+Sans:ital@0;1&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/6baeea78ae.js" crossorigin="anonymous" ></script>
+	<script src="../plugins/jquery-3.5.1.min.js"></script>
+	<script src="../plugins/bootstrap.bundle.min.js"></script>
+	<script src="../js/js.js"></script>
+	<script>
+		let uid = findcookie("userid");
+		if (uid == null) {
+			location.href = "../";
+		}
+	</script>
+</head>
+<body class="bg-light container">
+	<button type="button" class="btn btn-info float-right">回首頁</button>
+	<h2 class="pb-3 text-center text-dark" id="welcome"></h2>
+	<section id="resume" class="py-5">
+        <header class="text-center text-info">			
+			<h2 class="pb-3">我的履歷表</h2>			
+            <nav class="nav nav-tabs justify-content-around border-bottom border-info">
+                <a class="mb-0 border-0 text-white shadow-sm alert-info nav-item nav-link active" data-toggle="tab" href="#nav-personal" onclick="getper('personal',1)">基本資料</a>
+                <a class="mb-0 border-0 text-white shadow-sm alert-info nav-item nav-link" data-toggle="tab" href="#nav-education" onclick="getedu('education',2)">學歷</a>
+                <a class="mb-0 border-0 text-white shadow-sm alert-info nav-item nav-link" data-toggle="tab" href="#nav-experience" onclick="getexp('experience',2)">經歷</a>
+                <a class="mb-0 border-0 text-white shadow-sm alert-info nav-item nav-link" data-toggle="tab" href="#nav-autobiography" onclick="getau('autobiography',2)">自傳</a>
+                <a class="mb-0 border-0 text-white shadow-sm alert-info nav-item nav-link" data-toggle="tab" href="#nav-jobconditions" onclick="getjob('jobconditions',1)">求職條件</a>
+				<a class="mb-0 border-0 text-white shadow-sm alert-info nav-item nav-link" data-toggle="tab" href="#nav-works" onclick="getworks('works',2)">作品集</a>
+				<a class="mb-0 border-0 text-white shadow-sm alert-info nav-item nav-link" data-toggle="tab" href="#nav-album" onclick="getab('album',2)">圖片管理</a>
+            </nav>
+        </header>
+		<article class="tab-content py-5 container">
+			<div class="row text-dark tab-pane fade show active" id="nav-personal">
+				<form class="row col-12" id="personal">
+					<div class="form-group col-12 col-md-4">
+						<label for="c_name">姓名</label>
+						<div class="input-group">
+							<input class="form-control" id="c_name" name="name">
+						</div>
+					</div>
+					<div class="form-group col-12 col-md-4">
+						<label for="c_lic">職照</label>
+						<div class="input-group">
+							<input class="form-control" id="c_lic" name="license">
+						</div>
+					</div>
+					<div class="form-group col-12 col-md-4">
+						<label for="c_qa">就業狀態</label>
+						<div class="input-group">
+							<select class="custom-select mr-sm-2" id="c_st" name="status">
+								<option value="1">待業中</option>
+								<option value="2">就業中</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group col-12 col-md-4">
+						<label for="c_he">身高</label>
+						<div class="input-group">
+							<input class="form-control" id="c_he" name="height">
+						</div>
+					</div>
+					
+					<div class="form-group col-12 col-md-4">
+						<label for="c_we">體重</label>
+						<div class="input-group">
+							<input class="form-control" id="c_we" name="weight">
+						</div>
+					</div>
+					<div class="form-group col-12 col-md-4">
+						<label for="c_qa">性別</label>
+						<div class="input-group">
+							<select class="custom-select mr-sm-2" id="c_sex" name="sex">
+								<option value="1">男</option>
+								<option value="2">女</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group col-12">
+						<label for="c_add">住址</label>
+						<div class="input-group">
+							<input type="text" class="form-control" id="c_add" name="address">
+						</div>
+					</div>
+				</form>	
+				<div class="form-group col-12"></div>
+				<div class="col-12 text-center">
+					<button class="btn btn-primary" onclick="updatepersonal()">修改</button>
+				</div>
+			</div>
+			<div class="row text-dark tab-pane fade" id="nav-education">
+				<form class="row col-12" id = "education">
+				</form>
+				<div class="form-group col-12"></div>
+				<div class="col-6 text-center left_btn">
+					<button class="btn btn-primary" onclick="addedu()">更多</button>
+				</div>
+				<div class="col-6 text-center right_btn">
+					<button class="btn btn-primary" onclick="updateedu()">更新</button>
+				</div>
+			</div>
+			<div class="row text-dark tab-pane fade" id="nav-experience">
+				<form class="row col-12" id="experience">
+				</form>
+				<div class="form-group col-12"></div>
+				<div class="col-6 text-center left_btn">
+					<button class="btn btn-primary" onclick="addexp()">更多</button>
+				</div>
+				<div class="col-6 text-center right_btn">
+					<button class="btn btn-primary" onclick="updateexp()">更新</button>
+				</div>
+			</div>
+			<div class="row text-dark tab-pane fade" id="nav-autobiography">
+				<form class="row col-12" id="autobiography">
+				</form>
+				<div class="form-group col-12"></div>
+				<div class="col-6 text-center left_btn">
+					<button class="btn btn-primary" onclick="addau()">更多</button>
+				</div>
+				<div class="col-6 text-center right_btn">
+					<button class="btn btn-primary" onclick="updateau()">更新</button>
+				</div>
+			</div>
+			<div class="row text-dark tab-pane fade" id="nav-jobconditions">
+				<form class="row col-12" id="jobconditions">
+					<div class="form-group col-12 col-md-4">
+						<label for="c_nat">希望性質</label>
+						<div class="input-group">
+							<select class="custom-select mr-sm-2" id="c_nat" name="nature">
+								<option value="1">正職</option>
+								<option value="2">兼職</option>
+								<option value="3">見習</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group col-12 col-md-4">
+						<label for="c_per">工作時段</label>
+						<div class="input-group">
+							<select class="custom-select mr-sm-2" id="c_per" name="period">
+								<option value="1">早班</option>
+								<option value="2">晚班</option>
+								<option value="3">大夜班</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group col-12 col-md-4">
+						<label for="c_money">希望待遇</label>
+						<div class="input-group">
+							<input type="number" class="form-control" id="c_money" name="money">
+						</div>
+					</div>
+					<div class="form-group col-12 col-md-6">
+						<label for="c_place">希望地點</label>
+						<div class="input-group">
+							<input class="form-control" id="c_place" name="place">
+						</div>
+					</div>				
+					<div class="form-group col-12 col-md-6">
+						<label for="c_cate">希望職類</label>
+						<div class="input-group">
+							<input class="form-control" id="c_cate" name="category">
+						</div>
+					</div>
+				</form>
+				<div class="form-group col-12"></div>
+				<div class="col-12 text-center">
+					<button class="btn btn-primary" onclick="updatejob()">修改</button>
+				</div>
+			</div>      
+			<div class="row text-dark tab-pane fade" id="nav-works">
+				<form class="row col-12" id="works">
+				</form>
+				<div class="form-group col-12"></div>
+				<div class="col-6 text-center left_btn">
+					<button class="btn btn-primary" onclick="addwork()">更多</button>
+				</div>
+				<div class="col-6 text-center right_btn">
+					<button class="btn btn-primary" onclick="updatework()">更新</button>
+				</div>
+			</div>
+			<div class="row text-dark tab-pane fade" id="nav-album">
+				<form class="row col-12" id="album">
+				</form>
+				<div class="form-group col-12"></div>
+				<div class="col-6 text-center left_btn">
+					<button class="btn btn-primary" id="btn_album">更多</button>
+				</div>
+				<div class="col-6 text-center right_btn">
+					<button class="btn btn-primary" onclick="updateab()">更新</button>
+				</div>
+			</div>
+		</article>
+	</section>
+	<script>
+		let edu = document.getElementById("education");
+		let exp = document.getElementById("experience");
+		let au = document.getElementById("autobiography");
+		let job = document.getElementById("jobconditions");
+		let work = document.getElementById("works");
+		let ab = document.getElementById("album");
+
+		function getper(tab, type) {
+			$.post("../api/getdata.php",{uid, tab, type},function(res){
+				let jda = JSON.parse(res);
+				if (!jda['rn']) {
+					//location.href = "../login.html";
+				} else {
+					let da = jda['rn'];
+					document.getElementById("welcome").textContent = "歡迎回來 " + da['name'];
+					document.getElementById("c_name").value = da['name'];
+					document.getElementById("c_he").value = da['height'];
+					document.getElementById("c_we").value = da['weight'];
+					document.getElementById("c_lic").value = da['license'];
+					document.getElementById("c_add").value = da['address'];
+
+					tmp_ar = document.getElementById("c_st");
+					for (i = 0; i < tmp_ar.length; i++) {
+						if (tmp_ar[i].value == da['status']) {
+							tmp_ar[i].selected = 'selected';
+						}
+					}
+					tmp_ar = document.getElementById("c_sex");
+					for (i = 0; i < tmp_ar.length; i++) {
+						if (tmp_ar[i].value == da['sex']) {
+							tmp_ar[i].selected = 'selected';
+						}
+					}
+				}
+			})
+		}
+
+		function getedu(tab, type) {
+			$.post("../api/getdata.php",{uid, tab, type},function(res){
+				let jda = JSON.parse(res);
+				if (!jda['rn']) {
+					location.href = "../login.html";
+				} else {
+					let da = jda['rn'];
+					edu.innerHTML = "";
+					for(i = 0; i < da.length; i++) {
+						let is_sh ="";
+						if (da[i]['sh'] == 1) {
+							is_sh = "checked";
+						}
+						edu.innerHTML += `<div class="form-group col-12 col-md-4">
+							<label for="c_sch">學校</label>
+							<div class="input-group">
+								<input class="form-control" id="c_sch" name="school" value=${da[i]['school']}>
+							</div>
+						</div>
+						<div class="form-group col-12 col-md-4">
+							<label for="c_dep">科系</label>
+							<div class="input-group">
+								<input class="form-control" id="c_dep" name="department" value=${da[i]['department']}>
+								<input type="hidden" name="id" value=${da[i]['id']}>
+							</div>
+						</div>
+						<div class="form-group col-6 col-md-2">
+							<label for="c_sh">顯示</label>
+							<div class="input-group">
+								<input type="checkbox" class="form-control" id="c_sh" name="sh" ${is_sh}>
+							</div>
+						</div>
+						<div class="form-group col-6 col-md-2">
+							<label for="c_del">刪除</label>
+							<div class="input-group">
+								<input type="checkbox" class="form-control" id="c_del" name="del">
+							</div>
+						</div>
+						`;
+					}
+				}
+			})
+		}
+
+		function getexp(tab, type) {
+			$.post("../api/getdata.php",{uid, tab, type},function(res){
+				let jda = JSON.parse(res);
+				if (!jda['rn']) {
+					location.href = "../login.html";
+				} else {
+					let da = jda['rn'];
+					exp.innerHTML = "";
+					for(i = 0; i < da.length; i++) {
+						let is_sh ="";
+						if (da[i]['sh'] == 1) {
+							is_sh = "checked";
+						}
+						exp.innerHTML += `<div class="form-group col-12 col-md-4">
+							<label for="c_tit">任務</label>
+							<div class="input-group">
+								<input class="form-control" id="c_tit" name="title" value=${da[i]['title']}>
+							</div>
+						</div>
+						<div class="form-group col-12 col-md-4">
+							<label for="c_cal">級別</label>
+							<div class="input-group">
+								<input class="form-control" id="c_cal" name="class" value=${da[i]['class']}>
+							</div>
+						</div>
+						<div class="form-group col-6 col-md-2">
+							<label for="c_sh">顯示</label>
+							<div class="input-group">
+								<input type="checkbox" class="form-control" id="c_sh" name="sh" ${is_sh}>
+							</div>
+						</div>
+						<div class="form-group col-6 col-md-2">
+							<label for="c_del">刪除</label>
+							<div class="input-group">
+								<input type="checkbox" class="form-control" id="c_del" name="del">
+							</div>
+						</div>
+						<div class="form-group col-12">
+							<label for="c_desc">說明</label>
+							<div class="input-group">
+								<input class="form-control" id="c_desc" name="description" value=${da[i]['description']}>
+								<input type="hidden" name="id" value=${da[i]['id']}>
+							</div>
+						</div>						
+						`;
+					}
+				}
+			})
+		}
+
+		function getau(tab, type) {
+			$.post("../api/getdata.php",{uid, tab, type},function(res){
+				let jda = JSON.parse(res);
+				if (!jda['rn']) {
+					location.href = "../login.html";
+				} else {
+					let da = jda['rn'];
+					au.innerHTML = "";
+					for(i = 0; i < da.length; i++) {
+						let is_sh ="";
+						if (da[i]['sh'] == 1) {
+							is_sh = "checked";
+						}
+						au.innerHTML += `<div class="form-group col-12">
+							<label for="c_cont">自傳</label>							
+								<textarea class="form-control" id="c_cont" name="content">${da[i]['content']}</textarea>
+						</div>
+						<div class="form-group col-6">
+							<label for="c_sh">顯示</label>
+							<div class="input-group">
+								<input type="radio" class="form-control" id="c_sh" name="sh" ${is_sh}>
+							</div>
+						</div>
+						<div class="form-group col-6">
+							<label for="c_del">刪除</label>
+							<div class="input-group">
+								<input type="checkbox" class="form-control" id="c_del" name="del">
+								<input type="hidden" name="id" value=${da[i]['id']}>
+							</div>
+						</div>
+						`;
+					}
+				}
+			})
+		}
+
+		function getjob(tab, type) {
+			$.post("../api/getdata.php",{uid, tab, type},function(res){
+				let jda = JSON.parse(res);
+				let obj_cate = $("#c_cate");
+				if (jda['rn'] != "") {
+					let jda = JSON.parse(res);
+					let da = jda['rn'];
+					document.getElementById("c_money").value = Number(da['money']);
+					document.getElementById("c_place").value = da['place'];
+					document.getElementById("c_cate").value = da['category'];
+					obj_cate.attr("value", da['category'])
+
+					tmp_ar = document.getElementById("c_nat");
+					for (i = 0; i < tmp_ar.length; i++) {
+						if (tmp_ar[i].value == da['nature']) {
+							tmp_ar[i].selected = 'selected';
+						}
+					}
+					tmp_ar = document.getElementById("c_per");
+					for (i = 0; i < tmp_ar.length; i++) {
+						if (tmp_ar[i].value == da['period']) {
+							tmp_ar[i].selected = 'selected';
+						}
+					}
+					obj_cate.before(`<input type="hidden" name="id" value=${da['id']}>`);
+				} else {
+					obj_cate.before(`<input type="hidden" name="id" value="0">`);
+				}
+			})
+		}
+
+		function getab(tab, type) {
+			$.post("../api/getdata.php",{uid, tab, type},function(res){
+				let jda = JSON.parse(res);
+				if (!jda['rn']) {
+					location.href = "../login.html";
+				} else {
+					let da = jda['rn'];
+					let ty_ar = ["相簿", "基本資料", "學歷", "經歷", "自傳", "求職條件", "作品集"];
+					ab.innerHTML = "";
+					for(i = 0; i < da.length; i++) {
+						let sel = ""
+						for(j = 0; j < ty_ar.length; j++) {
+							let show = "";
+							if (j == da[i]['type']) {
+								show = 'selected';
+							}
+							sel += `<option value=${j} ${show}>${ty_ar[j]}</option>`
+						}
+						ab.innerHTML += `<img src=${"."+da[i]['path']} class="img-thumbnail col-6 col-md-3">
+							<div class="custom-file col-6 col-md-3">
+								<input type="file" class="custom-file-input" id="inputGroupFile01" name="img[]" accept="image/png, image/jpeg">
+								<label class="custom-file-label" for="inputGroupFile01"></label>
+							</div>
+							<div class="form-group col-6 col-md-3">
+								<label for="c_type">顯示區</label>
+								<div class="input-group">
+									<select class="custom-select mr-sm-2" id="c_type" name="type[]">`
+									+ sel +	
+									`</select>
+								</div>
+							</div>
+							<div class="form-group col-6 col-md-3">
+								<label for="c_del">刪除</label>
+								<div class="input-group">
+									<input type="checkbox" class="form-control" id="c_del" name="del[]" value=${da[i]['id']}>
+									<input type="hidden" name="id[]" value=${da[i]['id']}>
+									<input type="hidden" name="uid" value=${uid}>
+								</div>
+							</div>
+						</div>
+						`;
+						$(".custom-file-input").on("change", function() {
+							var fileName = $(this).val().split("\\").pop();
+							$(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+						});
+						$(".custom-select").on("change", function() {
+							let sel_ar = $("select#c_type");
+							for(let i = 0; i < sel_ar.length; i++) {
+								if ((sel_ar[i].value != 0) && (sel_ar[i] != this) && (sel_ar[i].value == this.value)) {
+									sel_ar[i].value = 0;
+								}
+							}							
+						})
+					}
+				}
+			})
+		}
+
+		function getworks(tab, type) {
+			$.post("../api/getdata.php",{uid, tab, type},function(res){
+				let jda = JSON.parse(res);
+				if (!jda['rn']) {
+					location.href = "../login.html";
+				} else {
+					let da = jda['rn'];
+					work.innerHTML = "";
+					for(i = 0; i < da.length; i++) {
+						let is_sh ="";
+						if (da[i]['sh'] == 1) {
+							is_sh = "checked";
+						}
+						work.innerHTML += `<div class="form-group col-12 col-md-2">
+							<label for="c_tit">作品名稱</label>
+							<div class="input-group">
+								<input class="form-control" id="c_tit" name="title" value=${da[i]['title']}>
+							</div>
+						</div>
+						<div class="form-group col-12 col-md-3">
+							<label for="c_narr">敘述</label>
+							<div class="input-group">
+								<input class="form-control" id="c_narr" name="narrative" value=${da[i]['narrative']}>
+							</div>
+						</div>
+						<div class="form-group col-12 col-md-3">
+							<label for="c_pos">連結</label>
+							<div class="input-group">
+								<input class="form-control" id="c_pos" name="position" value=${da[i]['position']}>
+								<input type="hidden" name="id" value=${da[i]['id']}>
+							</div>
+						</div>
+						<div class="form-group col-6 col-md-2">
+							<label for="c_sh">顯示</label>
+							<div class="input-group">
+								<input type="checkbox" class="form-control" id="c_sh" name="sh" ${is_sh}>
+							</div>
+						</div>
+						<div class="form-group col-6 col-md-2">
+							<label for="c_del">刪除</label>
+							<div class="input-group">
+								<input type="checkbox" class="form-control" id="c_del" name="del">
+							</div>
+						</div>`
+					}
+				}
+			})
+		}
+	
+		function updatepersonal() {
+			fdata = document.getElementById("personal");
+			let ary={};
+			for (i = 0; i < fdata.length; i++ ) {
+				ary[fdata[i].name] = fdata[i].value;
+			}
+			ary['uid'] = uid;
+			$.post("../api/updateper.php",ary,function(res){
+				let jda = JSON.parse(res);
+				if (typeof(jda['rn']) == "string") {
+					alert(jda['rn']);
+				} else {
+					getper('personal',1);
+					alert("更新完成");
+				}
+			})
+		}
+		
+		function updateedu() {
+			fdata = document.getElementById("education");
+			let ary={};
+			let sc_ar = [];
+			let de_ar = [];
+			let id_ar = [];
+			let sh_ar = [];
+			let del_ar = [];
+
+			if (fdata.length == 0) {
+				return;
+			}
+			for (i = 0; i < fdata.length; i++ ) {
+				if (fdata[i].name == 'school') {
+					sc_ar.push(fdata[i].value);
+				} else if (fdata[i].name == 'department') {
+					de_ar.push(fdata[i].value);
+				} else if (fdata[i].name == 'id') {
+					id_ar.push(fdata[i].value);
+				} else if (fdata[i].name == 'sh') {
+					if (fdata[i].checked) {
+						sh_ar.push(1);
+					} else {
+						sh_ar.push(0);
+					}
+				} else if (fdata[i].name == 'del') {
+					if (fdata[i].checked) {
+						del_ar.push(1);
+					} else {
+						del_ar.push(0);
+					}
+				}
+			}
+			ary['school'] = sc_ar;
+			ary['department'] = de_ar;
+			ary['id'] = id_ar;
+			ary['uid'] = uid;
+			ary['sh'] = sh_ar;
+			ary['del'] = del_ar;
+
+			$.post("../api/updateedu.php",ary,function(res){
+				let jda = JSON.parse(res);
+				if (typeof(jda['rn']) == "string") {
+					alert(jda['rn']);
+				} else {
+					getedu('education',2);
+					alert("更新完成");
+				}
+			})
+		}
+
+		function updateexp() {
+			fdata = document.getElementById("experience");
+			let ary={};
+			let tit_ar = [];
+			let cal_ar = [];
+			let desc_ar = [];
+			let id_ar = [];
+			let sh_ar = [];
+			let del_ar = [];
+
+			if (fdata.length == 0) {
+				return;
+			}
+			for (i = 0; i < fdata.length; i++ ) {
+				if (fdata[i].name == 'title') {
+					tit_ar.push(fdata[i].value);
+				} else if (fdata[i].name == 'class') {
+					cal_ar.push(fdata[i].value);
+				} else if (fdata[i].name == 'description') {
+					desc_ar.push(fdata[i].value);
+				} else if (fdata[i].name == 'id') {
+					id_ar.push(fdata[i].value);
+				} else if (fdata[i].name == 'sh') {
+					if (fdata[i].checked) {
+						sh_ar.push(1);
+					} else {
+						sh_ar.push(0);
+					}
+				} else if (fdata[i].name == 'del') {
+					if (fdata[i].checked) {
+						del_ar.push(1);
+					} else {
+						del_ar.push(0);
+					}
+				}
+			}
+			ary['title'] = tit_ar;
+			ary['class'] = cal_ar;
+			ary['description'] = desc_ar;
+			ary['id'] = id_ar;
+			ary['uid'] = uid;
+			ary['sh'] = sh_ar;
+			ary['del'] = del_ar;
+			$.post("../api/updateexp.php",ary,function(res){
+				let jda = JSON.parse(res);
+				if (typeof(jda['rn']) == "string") {
+					alert(jda['rn']);
+				} else {
+					getexp('experience',2);
+					alert("更新完成");
+				}
+			})
+		}
+
+		function updateau() {
+			fdata = document.getElementById("autobiography");
+			let ary={};
+			let cont_ar = [];
+			let id_ar = [];
+			let sh_ar = [];
+			let del_ar = [];
+
+			if (fdata.length == 0) {
+				return;
+			}
+			for (i = 0; i < fdata.length; i++ ) {
+				if (fdata[i].name == 'content') {
+					cont_ar.push(fdata[i].value);
+				} else if (fdata[i].name == 'id') {
+					id_ar.push(fdata[i].value);
+				} else if (fdata[i].name == 'sh') {
+					if (fdata[i].checked) {
+						sh_ar.push(1);
+					} else {
+						sh_ar.push(0);
+					}
+				} else if (fdata[i].name == 'del') {
+					if (fdata[i].checked) {
+						del_ar.push(1);
+					} else {
+						del_ar.push(0);
+					}
+				}
+			}
+			ary['content'] = cont_ar;
+			ary['id'] = id_ar;
+			ary['uid'] = uid;
+			ary['sh'] = sh_ar;
+			ary['del'] = del_ar;
+			$.post("../api/updateau.php",ary,function(res){
+				let jda = JSON.parse(res);
+				if (typeof(jda['rn']) == "string") {
+					alert(jda['rn']);
+				} else {
+					getau('autobiography',2);
+					alert("更新完成");
+				}
+			})
+		}
+
+		function updatejob() {
+			fdata = document.getElementById("jobconditions");
+			let ary={};
+			for (i = 0; i < fdata.length; i++ ) {
+				ary[fdata[i].name] = fdata[i].value;
+			}
+			ary['uid'] = uid;
+			$.post("../api/updatejob.php",ary,function(res){
+				let jda = JSON.parse(res);
+				if (typeof(jda['rn']) == "string") {
+					alert(jda['rn']);
+				} else {
+					getjob('jobconditions',1);
+					alert("更新完成");
+				}
+			})
+		}
+
+		function updatework() {
+			fdata = document.getElementById("works");
+			let ary={};
+			let title_ar = [];
+			let narr_ar = [];
+			let pos_ar = [];
+			let id_ar = [];
+			let sh_ar = [];
+			let del_ar = [];
+
+			if (fdata.length == 0) {
+				return;
+			}
+			for (i = 0; i < fdata.length; i++ ) {
+				if (fdata[i].name == 'title') {
+					title_ar.push(fdata[i].value);
+				} else if (fdata[i].name == 'narrative') {
+					narr_ar.push(fdata[i].value);
+				} else if (fdata[i].name == 'position') {
+					pos_ar.push(fdata[i].value);
+				} else if (fdata[i].name == 'id') {
+					id_ar.push(fdata[i].value);
+				} else if (fdata[i].name == 'sh') {
+					if (fdata[i].checked) {
+						sh_ar.push(1);
+					} else {
+						sh_ar.push(0);
+					}
+				} else if (fdata[i].name == 'del') {
+					if (fdata[i].checked) {
+						del_ar.push(1);
+					} else {
+						del_ar.push(0);
+					}
+				}
+			}
+			ary['title'] = title_ar;
+			ary['narrative'] = narr_ar;
+			ary['position'] = pos_ar;
+			ary['id'] = id_ar;
+			ary['uid'] = uid;
+			ary['sh'] = sh_ar;
+			ary['del'] = del_ar;
+			$.post("../api/updateworks.php",ary,function(res){
+				let jda = JSON.parse(res);
+				if (typeof(jda['rn']) == "string") {
+					alert(jda['rn']);
+				} else {
+					getworks('works',2);
+					alert("更新完成");
+				}
+			})
+		}
+
+		function updateab() {
+			let fdata = document.getElementById("album");
+			let formData = new FormData(fdata);
+			
+			$.ajax({
+				url:'../api/updatepic.php',
+				type : "POST",
+				data : formData,
+				contentType: false,
+				cache: false,
+				processData: false,
+				success : function(res) {
+					let jda = JSON.parse(res);
+					if (typeof(jda['rn']) == "string") {
+						alert(jda['rn']);
+					} else {
+						getab('album',2);
+						alert("更新完成");
+					}
+				}
+			})
+		}
+
+		function addedu() {
+			edu.innerHTML += `<div class="form-group col-12 col-md-6">
+				<label for="c_sch">學校</label>
+				<div class="input-group">
+					<input class="form-control" id="c_sch" name="school">
+				</div>
+			</div>
+			<div class="form-group col-12 col-md-6">
+				<label for="c_dep">科系</label>
+				<div class="input-group">
+					<input class="form-control" id="c_dep" name="department">
+					<input type="hidden" name="id" value="0">
+					<input type="hidden" name="sh" checked>
+					<input type="hidden" name="del">
+				</div>
+			</div>`;
+		}
+
+		function addexp() {
+			exp.innerHTML += `<div class="form-group col-12 col-md-6">
+				<label for="c_tit">任務</label>
+				<div class="input-group">
+					<input class="form-control" id="c_tit" name="title">
+				</div>
+			</div>
+			<div class="form-group col-12 col-md-6">
+				<label for="c_cal">級別</label>
+				<div class="input-group">
+					<input class="form-control" id="c_cal" name="class">
+					<input type="hidden" name="id" value="0">
+					<input type="hidden" name="sh" checked>
+					<input type="hidden" name="del">
+				</div>
+			</div>
+			<div class="form-group col-12">
+				<label for="c_desc">說明</label>
+				<div class="input-group">
+					<input class="form-control" id="c_desc" name="description">
+				</div>
+			</div>`;
+		}
+
+		function addau() {
+			au.innerHTML += `<div class="form-group col-12">
+				<label for="c_cont">自傳</label>
+				<div class="input-group">
+					<textarea class="form-control" id="c_cont" name="content"></textarea>
+					<input type="hidden" name="id" value="0">
+					<input type="hidden" name="sh" checked>
+					<input type="hidden" name="del">
+				</div>
+			</div>`;
+		}
+
+		function addwork() {
+			work.innerHTML += `<div class="form-group col-12 col-md-4">
+					<label for="c_tit">作品名稱</label>
+					<div class="input-group">
+						<input class="form-control" id="c_tit" name="title">
+					</div>
+				</div>
+				<div class="form-group col-12 col-md-4">
+					<label for="c_narr">敘述</label>
+					<div class="input-group">
+						<input class="form-control" id="c_narr" name="narrative">
+					</div>
+				</div>
+				<div class="form-group col-12 col-md-4">
+					<label for="c_pos">連結</label>
+					<div class="input-group">
+						<input class="form-control" id="c_pos" name="position">
+						<input type="hidden" name="id" value="0">
+						<input type="hidden" name="sh" checked>
+						<input type="hidden" name="del">
+					</div>
+			</div>`;
+		}
+
+		$("#btn_album").on("click", function() {
+			let sid = 0;
+			if ($(this).attr("id") != "btn_album") {
+				sid = $(this).attr("id");
+			}			
+
+			let cont = `<div class="input-group">
+				<div class="custom-file">
+					<input type="file" class="custom-file-input" id="inputGroupFile01" name="img[]" accept="image/png, image/jpeg">
+					<label class="custom-file-label" for="inputGroupFile01">上傳圖片：</label>
+					<input type="hidden" name="id[]" value=${sid}>
+					<input type="hidden" name="type[]" value="0">
+					<input type="hidden" name="del[]" value="0">
+					<input type="hidden" name="uid" value=${uid}>
+				</div>
+			</div>`;
+			ab.innerHTML += cont;
+
+			let tmp_lab = $(".custom-file-label");
+			for(let i = 0; i < tmp_lab.length; i++) {
+				if (tmp_lab[i].textContent.split(".").length > 1) {
+					tmp_lab[i].textContent = "上傳圖片：";
+				}
+			}
+			$(".custom-file-input").on("change", function() {
+				var fileName = $(this).val().split("\\").pop();
+				$(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+			});
+		});
+
+		$(".float-right").on("click", function() {
+			location.href = "../";
+		});
+
+		if (uid != null) {			
+			getper('personal',1);
+		}
+	</script>
+</body>
+</html>
