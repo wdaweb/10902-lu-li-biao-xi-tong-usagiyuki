@@ -15,5 +15,5 @@ function findcookie(name){
 function logout(){
     let dd = new Date();
     document.cookie="userid='';expires="+dd.toUTCString();
-    location.href = "/resume/";
+    location.href = "./";
 }
